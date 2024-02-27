@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:google_books_api/UI/book_detail.dart';
 import 'package:google_books_api/models/book_responce.dart';
 import 'package:http/http.dart' as http;
 
@@ -94,6 +95,13 @@ class _HomeViewState extends State<HomeView> {
                     itemCount: responce?.items?.length ?? 0,
                     itemBuilder: (context, index) {
                       return ListTile(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => BookDetail(
+                                     book : (responce?.items![index])!)));
+                        },
                         title: Text(
                             responce?.items![index].volumeInfo?.title ?? ""),
                         subtitle: Text(responce
