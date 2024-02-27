@@ -23,6 +23,9 @@ class _HomeViewState extends State<HomeView> {
   }
 
   _getbooks() async {
+    setState(() {
+      isLoading = true;
+    });
     try {
       var url =
           Uri.parse('https://www.googleapis.com/books/v1/volumes?q=flutter');
@@ -31,6 +34,9 @@ class _HomeViewState extends State<HomeView> {
 
       setState(() {
         this.responce = BookResponce.fromJson(decodedJson);
+      });
+      setState(() {
+        isLoading = false;
       });
     } catch (e) {
       print(e);
@@ -100,7 +106,7 @@ class _HomeViewState extends State<HomeView> {
                               context,
                               MaterialPageRoute(
                                   builder: (_) => BookDetail(
-                                     book : (responce?.items![index])!)));
+                                      book: (responce?.items![index])!)));
                         },
                         title: Text(
                             responce?.items![index].volumeInfo?.title ?? ""),
